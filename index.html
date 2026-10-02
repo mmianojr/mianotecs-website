@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>mianoTecs | Local Wi-Fi That Keeps You Connected</title>
+
+  <meta
+    name="description"
+    content="Fast, affordable local Wi-Fi from mianoTecs. Choose a daily, weekly or monthly package and get connected in minutes."
+  />
+
+  <!-- Tailwind CSS - Good for prototype/testing.
+       For production, compile Tailwind locally for better performance. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#eff6ff",
+              100: "#dbeafe",
+              500: "#2563eb",
+              600: "#1d4ed8",
+              700: "#1e40af",
+              900: "#172554"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .hero-pattern {
+      background:
+        radial-gradient(circle at 85% 10%, rgba(37,99,235,.20), transparent 30%),
+        radial-gradient(circle at 10% 80%, rgba(14,165,233,.13), transparent 28%),
+        linear-gradient(135deg,#f8fbff 0%,#ffffff 55%,#eff6ff 100%);
+    }
+    .glass { background: rgba(255,255,255,.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .grid-glow { background-image: linear-gradient(rgba(37,99,235,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.06) 1px,transparent 1px); background-size: 32px 32px; }
+    .float { animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+    .pulse-dot { animation: pulseDot 1.8s infinite; }
+    @keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.35) } 50% { box-shadow: 0 0 0 8px rgba(34,197,94,0) } }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-item.active .faq-content { max-height: 300px; }
+    .faq-item.active .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform .2s ease; }
+    .package-card { transition: transform .25s ease, box-shadow .25s ease; }
+    .package-card:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(15,23,42,.10); }
+
+    .hero-image-wrap {
+      position: relative;
+      isolation: isolate;
+    }
+    .hero-image-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      border-radius: 2.25rem;
+      background: linear-gradient(135deg, rgba(37,99,235,.25), rgba(14,165,233,.10));
+      filter: blur(22px);
+      z-index: -1;
+    }
+    .hero-image {
+      transition: transform .5s ease, box-shadow .5s ease;
+    }
+    .hero-image-wrap:hover .hero-image { transform: scale(1.015); }
+    .signal-ring { animation: signalPulse 2.2s ease-in-out infinite; }
+    @keyframes signalPulse {
+      0%,100% { transform: scale(1); opacity: .85; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    .trust-card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .trust-card:hover { transform: translateY(-3px); border-color: rgba(37,99,235,.25); box-shadow: 0 16px 35px rgba(15,23,42,.08); }
+    .section-kicker { letter-spacing: .14em; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- =========================
+       HEADER / NAVBAR
+  ========================== -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+
+      <a href="#" class="flex items-center gap-2">
+        <div
+          class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-black text-white shadow-lg shadow-blue-200"
+        >
+          M
+        </div>
+
+        <div>
+          <div class="text-xl font-black leading-tight tracking-tight">
+            miano<span class="text-brand-600">Tecs</span>
+          </div>
+          <div class="text-[10px] text-slate-500">
+            Fast. Local. Connected.
+          </div>
+        </div>
+      </a>
+
+      <button
+        id="mobileMenuButton"
+        class="rounded-lg border border-slate-200 p-2 md:hidden"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+      <nav class="hidden items-center gap-7 text-sm font-medium md:flex">
+        <a href="#packages" class="hover:text-brand-600">Packages</a>
+        <a href="#coverage" class="hover:text-brand-600">Coverage</a>
+        <a href="#how-it-works" class="hover:text-brand-600">How It Works</a>
+        <a href="#faq" class="hover:text-brand-600">FAQ</a>
+        <a href="#contact" class="hover:text-brand-600">Support</a>
+
+        <a
+          href="#packages"
+          class="rounded-lg bg-brand-600 px-5 py-2.5 text-white hover:bg-brand-700"
+        >
+          Get Connected
+        </a>
+      </nav>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden border-t bg-white md:hidden">
+      <div class="flex flex-col gap-1 px-4 py-4">
+        <a href="#packages" class="rounded-lg px-3 py-3 hover:bg-slate-100">Packages</a>
+        <a href="#coverage" class="rounded-lg px-3 py-3 hover:bg-slate-100">Coverage</a>
+        <a href="#how-it-works" class="rounded-lg px-3 py-3 hover:bg-slate-100">How It Works</a>
+        <a href="#faq" class="rounded-lg px-3 py-3 hover:bg-slate-100">FAQ</a>
+        <a href="#contact" class="rounded-lg px-3 py-3 hover:bg-slate-100">Support</a>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+    <section class="hero-pattern relative overflow-hidden border-b border-slate-200/70">
+      <div class="pointer-events-none absolute -right-24 top-16 h-72 w-72 rounded-full bg-blue-300/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl"></div>
+
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 py-12 md:grid-cols-2 md:items-center md:py-20 lg:gap-16 lg:py-24">
+
+        <div class="relative z-10">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-xs font-extrabold text-brand-700 shadow-sm backdrop-blur">
+            <span class="pulse-dot h-2.5 w-2.5 rounded-full bg-green-500"></span>
+            mianoTecs Network • Online
+          </div>
+
+          <h1 class="max-w-2xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
+            Fast Wi-Fi.
+            <span class="text-brand-600">Close to You.</span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-base leading-7 text-slate-600 md:text-lg">
+            Reliable and affordable local internet for students, families,
+            businesses and remote workers. Choose a package, pay securely,
+            and get connected in minutes.
+          </p>
+
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href="#packages" class="rounded-2xl bg-brand-600 px-7 py-4 text-center font-extrabold text-white shadow-xl shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-brand-700">
+              Get Connected Now
+            </a>
+            <a href="#coverage" class="rounded-2xl border border-slate-200 bg-white/90 px-7 py-4 text-center font-bold shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white">
+              Check Coverage
+            </a>
+          </div>
+
+          <div class="mt-8 grid max-w-xl grid-cols-3 gap-3">
+            <div class="trust-card rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur">
+              <div class="text-xl">⚡</div>
+              <div class="mt-2 text-sm font-extrabold">Fast Access</div>
+              <div class="mt-1 text-[11px] leading-4 text-slate-500">Built for everyday browsing</div>
+            </div>
+            <div class="trust-card rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur">
+              <div class="text-xl">💳</div>
+              <div class="mt-2 text-sm font-extrabold">Easy Payment</div>
+              <div class="mt-1 text-[11px] leading-4 text-slate-500">Simple mobile-money checkout</div>
+            </div>
+            <div class="trust-card rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur">
+              <div class="text-xl">🎫</div>
+              <div class="mt-2 text-sm font-extrabold">Instant Voucher</div>
+              <div class="mt-1 text-[11px] leading-4 text-slate-500">Connect with your access code</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image-wrap relative mx-auto w-full max-w-2xl">
+          <div class="absolute -right-2 -top-3 z-20 hidden rounded-2xl bg-slate-950 px-4 py-3 text-white shadow-xl sm:block">
+            <div class="flex items-center gap-3">
+              <div class="signal-ring flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/20 text-xl">📶</div>
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-wider text-blue-300">mianoTecs</div>
+                <div class="text-sm font-extrabold">Stay Connected</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-hidden rounded-[2rem] border border-white bg-white p-2 shadow-2xl shadow-blue-200/60">
+            <img
+              src="assets/images/wifi-network.png"
+              alt="mianoTecs Wi-Fi network with router and connected devices"
+              class="hero-image aspect-[16/10] w-full rounded-[1.65rem] object-cover"
+              loading="eager"
+            />
+          </div>
+
+          <div class="absolute -bottom-5 left-4 z-20 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/95 px-4 py-3 shadow-xl backdrop-blur sm:left-6">
+            <span class="relative flex h-3 w-3">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
+            </span>
+            <div>
+              <div class="text-xs font-extrabold text-slate-900">Network Online</div>
+              <div class="text-[10px] text-slate-500">Ready for your next connection</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mx-auto max-w-7xl px-4 pb-8 pt-2 md:pb-12">
+        <div class="grid grid-cols-2 gap-3 rounded-2xl border border-blue-100 bg-white/70 p-3 shadow-sm backdrop-blur sm:grid-cols-4">
+          <div class="rounded-xl p-3 text-center">
+            <div class="text-lg font-black text-brand-600">24/7</div>
+            <div class="text-xs text-slate-500">Connectivity</div>
+          </div>
+          <div class="rounded-xl p-3 text-center">
+            <div class="text-lg font-black text-brand-600">Daily+</div>
+            <div class="text-xs text-slate-500">Flexible plans</div>
+          </div>
+          <div class="rounded-xl p-3 text-center">
+            <div class="text-lg font-black text-brand-600">TZS</div>
+            <div class="text-xs text-slate-500">Affordable pricing</div>
+          </div>
+          <div class="rounded-xl p-3 text-center">
+            <div class="text-lg font-black text-brand-600">Local</div>
+            <div class="text-xs text-slate-500">Community support</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================
+         COVERAGE CHECKER
+    ========================== -->
+    <section id="coverage" class="relative overflow-hidden py-20">
+      <div class="mx-auto max-w-4xl px-4">
+
+        <div class="text-center">
+          <p class="text-sm font-bold uppercase tracking-wider text-brand-600">
+            Coverage
+          </p>
+
+          <h2 class="mt-2 text-3xl font-bold md:text-4xl">
+            Is mianoTecs available near you?
+          </h2>
+
+          <p class="mx-auto mt-3 max-w-2xl text-slate-600">
+            Enter your street, building, village or neighborhood to check
+            whether your location is currently within our Wi-Fi coverage area.
+          </p>
+        </div>
+
+        <div class="mt-8 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/50 sm:p-8">
+
+          <label
+            for="coverageInput"
+            class="mb-2 block text-sm font-semibold"
+          >
+            Your location
+          </label>
+
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <input
+              id="coverageInput"
+              type="text"
+              placeholder="Example: Ilalilo, Main Street, Block A..."
+              class="w-full rounded-xl border border-slate-300 px-4 py-4 outline-none focus:border-brand-500 focus:ring-2 focus:ring-blue-100"
+            />
+
+            <button
+              onclick="checkCoverage()"
+              class="rounded-xl bg-brand-600 px-7 py-4 font-bold text-white hover:bg-brand-700"
+            >
+              Check Coverage
+            </button>
+          </div>
+
+          <div
+            id="coverageResult"
+            class="mt-4 hidden rounded-xl p-4 text-sm"
+          ></div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         PACKAGES
+    ========================== -->
+    <section id="packages" class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-4">
+
+        <div class="text-center">
+          <p class="text-sm font-bold uppercase tracking-wider text-brand-600">
+            Internet Packages
+          </p>
+
+          <h2 class="mt-2 text-3xl font-bold md:text-4xl">
+            mianoTecs Wi-Fi Plans
+          </h2>
+
+          <p class="mx-auto mt-3 max-w-2xl text-slate-600">
+            Choose the package that works best for you. Upgrade or renew
+            whenever you need.
+          </p>
+        </div>
+
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+
+          <!-- DAILY -->
+          <div
+            class="package-card rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"
+          >
+            <div class="text-sm font-bold text-brand-600">DAILY PASS</div>
+
+            <div class="mt-4">
+              <span class="text-4xl font-extrabold">TZS 1,000</span>
+            </div>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Valid for 24 hours
+            </p>
+
+            <ul class="mt-6 space-y-3 text-sm">
+              <li>✓ 24-hour internet access</li>
+              <li>✓ Fast browsing</li>
+              <li>✓ Social media access</li>
+              <li>✓ Customer support</li>
+            </ul>
+
+            <button
+              onclick="buyVoucher('Daily Pass', 1000)"
+              class="mt-8 w-full rounded-xl bg-slate-900 px-5 py-4 font-bold text-white hover:bg-brand-600"
+            >
+              Buy Voucher
+            </button>
+          </div>
+
+
+          <!-- WEEKLY -->
+          <div
+            class="package-card relative rounded-[2rem] border-2 border-brand-600 bg-white p-7 shadow-xl shadow-blue-100"
+          >
+            <div
+              class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-4 py-1 text-xs font-bold text-white"
+            >
+              MOST POPULAR
+            </div>
+
+            <div class="text-sm font-bold text-brand-600">WEEKLY PASS</div>
+
+            <div class="mt-4">
+              <span class="text-4xl font-extrabold">TZS 5,000</span>
+            </div>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Valid for 7 days
+            </p>
+
+            <ul class="mt-6 space-y-3 text-sm">
+              <li>✓ 7-day internet access</li>
+              <li>✓ Fast & reliable connection</li>
+              <li>✓ Suitable for students</li>
+              <li>✓ Customer support</li>
+            </ul>
+
+            <button
+              onclick="buyVoucher('Weekly Pass', 5000)"
+              class="mt-8 w-full rounded-xl bg-brand-600 px-5 py-4 font-bold text-white hover:bg-brand-700"
+            >
+              Buy Voucher
+            </button>
+          </div>
+
+
+          <!-- MONTHLY -->
+          <div
+            class="package-card rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"
+          >
+            <div class="text-sm font-bold text-brand-600">MONTHLY PASS</div>
+
+            <div class="mt-4">
+              <span class="text-4xl font-extrabold">TZS 20,000</span>
+            </div>
+
+            <p class="mt-2 text-sm text-slate-500">
+              Valid for 30 days
+            </p>
+
+            <ul class="mt-6 space-y-3 text-sm">
+              <li>✓ 30-day internet access</li>
+              <li>✓ Best value package</li>
+              <li>✓ Great for remote workers</li>
+              <li>✓ Priority customer support</li>
+            </ul>
+
+            <button
+              onclick="buyVoucher('Monthly Pass', 20000)"
+              class="mt-8 w-full rounded-xl bg-slate-900 px-5 py-4 font-bold text-white hover:bg-brand-600"
+            >
+              Buy Voucher
+            </button>
+          </div>
+
+        </div>
+
+        <p class="mt-5 text-center text-xs text-slate-500">
+          * Package prices and speeds are examples. Replace them with your actual offers.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+    <section id="how-it-works" class="py-20">
+      <div class="mx-auto max-w-6xl px-4">
+
+        <div class="text-center">
+          <p class="text-sm font-bold uppercase tracking-wider text-brand-600">
+            Easy Connection
+          </p>
+
+          <h2 class="mt-2 text-3xl font-bold md:text-4xl">
+            How It Works
+          </h2>
+        </div>
+
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+
+          <div class="rounded-[2rem] border border-slate-100 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div
+              class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-3xl"
+            >
+              📶
+            </div>
+
+            <div class="mt-5 text-xs font-bold text-brand-600">
+              STEP 1
+            </div>
+
+            <h3 class="mt-2 text-xl font-bold">
+              Connect to Wi-Fi
+            </h3>
+
+            <p class="mt-3 text-sm leading-6 text-slate-600">
+              Open your phone's Wi-Fi settings and connect to the
+              <strong>mianoTecs</strong> network.
+            </p>
+          </div>
+
+
+          <div class="rounded-[2rem] border border-slate-100 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div
+              class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-3xl"
+            >
+              🎫
+            </div>
+
+            <div class="mt-5 text-xs font-bold text-brand-600">
+              STEP 2
+            </div>
+
+            <h3 class="mt-2 text-xl font-bold">
+              Choose a Plan
+            </h3>
+
+            <p class="mt-3 text-sm leading-6 text-slate-600">
+              Purchase a Wi-Fi package or enter a voucher code you already
+              received.
+            </p>
+          </div>
+
+
+          <div class="rounded-[2rem] border border-slate-100 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div
+              class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-3xl"
+            >
+              🚀
+            </div>
+
+            <div class="mt-5 text-xs font-bold text-brand-600">
+              STEP 3
+            </div>
+
+            <h3 class="mt-2 text-xl font-bold">
+              Start Browsing
+            </h3>
+
+            <p class="mt-3 text-sm leading-6 text-slate-600">
+              Once your voucher is activated, you're online and ready to
+              browse.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         CAPTIVE PORTAL CTA
+    ========================== -->
+    <section class="relative overflow-hidden bg-gradient-to-r from-brand-700 via-brand-600 to-sky-500 py-16 text-white">
+      <div
+        class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-7 px-4 text-center md:flex-row md:text-left"
+      >
+        <div>
+          <h2 class="text-3xl font-bold">
+            Already connected to mianoTecs Wi-Fi?
+          </h2>
+
+          <p class="mt-2 text-blue-100">
+            Enter your voucher and get online immediately.
+          </p>
+        </div>
+
+        <button
+          onclick="openVoucherModal()"
+          class="w-full rounded-xl bg-white px-7 py-4 font-bold text-brand-700 sm:w-auto"
+        >
+          Enter Voucher
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =========================
+         FAQ
+    ========================== -->
+    <section id="faq" class="bg-white py-20">
+      <div class="mx-auto max-w-4xl px-4">
+
+        <div class="text-center">
+          <p class="text-sm font-bold uppercase tracking-wider text-brand-600">
+            Help Center
+          </p>
+
+          <h2 class="mt-2 text-3xl font-bold md:text-4xl">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+
+        <div class="mt-9 space-y-3">
+
+          <div class="faq-item rounded-2xl border border-slate-200">
+            <button
+              class="flex w-full items-center justify-between p-5 text-left font-semibold"
+              onclick="toggleFaq(this)"
+            >
+              What internet speeds does mianoTecs provide?
+              <span class="faq-icon text-xl">+</span>
+            </button>
+
+            <div class="faq-content px-5">
+              <p class="pb-5 text-sm leading-6 text-slate-600">
+                Internet speed depends on your selected package, network
+                conditions and the number of connected users. Actual package
+                speeds will be displayed before purchase.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="faq-item rounded-2xl border border-slate-200">
+            <button
+              class="flex w-full items-center justify-between p-5 text-left font-semibold"
+              onclick="toggleFaq(this)"
+            >
+              How many devices can I connect?
+              <span class="faq-icon text-xl">+</span>
+            </button>
+
+            <div class="faq-content px-5">
+              <p class="pb-5 text-sm leading-6 text-slate-600">
+                Device limits depend on your package. Some vouchers may allow
+                one device while selected plans can support multiple devices.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="faq-item rounded-2xl border border-slate-200">
+            <button
+              class="flex w-full items-center justify-between p-5 text-left font-semibold"
+              onclick="toggleFaq(this)"
+            >
+              What should I do if I lose my connection?
+              <span class="faq-icon text-xl">+</span>
+            </button>
+
+            <div class="faq-content px-5">
+              <p class="pb-5 text-sm leading-6 text-slate-600">
+                Turn Wi-Fi off and on again, reconnect to the mianoTecs
+                network and confirm that your package has not expired. If the
+                issue continues, contact our support team.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="faq-item rounded-2xl border border-slate-200">
+            <button
+              class="flex w-full items-center justify-between p-5 text-left font-semibold"
+              onclick="toggleFaq(this)"
+            >
+              How will I receive my voucher?
+              <span class="faq-icon text-xl">+</span>
+            </button>
+
+            <div class="faq-content px-5">
+              <p class="pb-5 text-sm leading-6 text-slate-600">
+                After payment confirmation, your voucher can be displayed on
+                the website and later delivered through SMS or WhatsApp.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         CONTACT / SUPPORT
+    ========================== -->
+    <section id="contact" class="py-20">
+      <div class="mx-auto max-w-6xl px-4">
+
+        <div class="rounded-[2rem] bg-gradient-to-br from-slate-950 to-slate-800 p-7 text-white shadow-2xl md:p-12">
+
+          <div class="grid gap-9 md:grid-cols-2">
+
+            <div>
+              <p class="text-sm font-bold uppercase text-blue-300">
+                Support
+              </p>
+
+              <h2 class="mt-2 text-3xl font-bold">
+                Need help getting connected?
+              </h2>
+
+              <p class="mt-4 max-w-md text-sm leading-7 text-slate-300">
+                Our local support team is available to help with vouchers,
+                connectivity, payments and network questions.
+              </p>
+            </div>
+
+
+            <div class="space-y-3">
+              <a
+                href="tel:+255700000000"
+                class="block rounded-xl bg-white/10 p-4 hover:bg-white/15"
+              >
+                ☎ Support Hotline
+                <div class="mt-1 font-bold">
+                  +255 763 113 281
+                </div>
+              </a>
+
+              <a
+                href="https://wa.me/255700000000"
+                target="_blank"
+                class="block rounded-xl bg-white/10 p-4 hover:bg-white/15"
+              >
+                💬 WhatsApp Support
+                <div class="mt-1 font-bold">
+                  Chat with mianoTecs
+                </div>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="border-t bg-white">
+    <div
+      class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 md:grid-cols-4"
+    >
+
+      <div>
+        <div class="text-xl font-black">
+          miano<span class="text-brand-600">Tecs</span>
+        </div>
+
+        <p class="mt-3 text-sm leading-6 text-slate-500">
+          Reliable and affordable local Wi-Fi built for our community.
+        </p>
+      </div>
+
+
+      <div>
+        <h3 class="font-bold">Quick Links</h3>
+
+        <div class="mt-3 flex flex-col gap-2 text-sm text-slate-500">
+          <a href="#packages">Packages</a>
+          <a href="#coverage">Coverage</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+
+
+      <div>
+        <h3 class="font-bold">Support</h3>
+
+        <div class="mt-3 flex flex-col gap-2 text-sm text-slate-500">
+          <a href="tel:+255700000000">Call Support</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">Report a Problem</a>
+        </div>
+      </div>
+
+
+      <div>
+        <h3 class="font-bold">Legal</h3>
+
+        <div class="mt-3 flex flex-col gap-2 text-sm text-slate-500">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Fair Usage Policy</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-t px-4 py-5 text-center text-xs text-slate-500">
+      © 2026 mianoTecs. All Rights Reserved.
+    </div>
+  </footer>
+
+
+  <!-- =========================
+       VOUCHER MODAL
+  ========================== -->
+  <div
+    id="voucherModal"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 p-4"
+  >
+    <div class="w-full max-w-md rounded-3xl bg-white p-6">
+
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-xl font-black">Enter Wi-Fi Voucher</h3>
+          <p class="mt-1 text-sm text-slate-500">
+            Enter your mianoTecs voucher code.
+          </p>
+        </div>
+
+        <button
+          onclick="closeVoucherModal()"
+          class="rounded-lg p-2 text-xl"
+        >
+          ×
+        </button>
+      </div>
+
+      <input
+        id="voucherCode"
+        type="text"
+        placeholder="Example: MTC-AB12-CD34"
+        class="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 uppercase outline-none focus:border-brand-500"
+      />
+
+      <button
+        onclick="activateVoucher()"
+        class="mt-4 w-full rounded-xl bg-brand-600 px-5 py-4 font-bold text-white hover:bg-brand-700"
+      >
+        Connect Now
+      </button>
+
+      <div
+        id="voucherMessage"
+        class="mt-4 hidden rounded-xl p-3 text-sm"
+      ></div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+
+    /* -------------------------
+       Mobile navigation
+    ------------------------- */
+
+    const mobileMenuButton = document.getElementById("mobileMenuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    mobileMenuButton.addEventListener("click", function () {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+
+    /* Close mobile menu when link is clicked */
+
+    document.querySelectorAll("#mobileMenu a").forEach(function(link) {
+      link.addEventListener("click", function() {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+
+
+    /* -------------------------
+       Coverage Checker
+    ------------------------- */
+
+    function checkCoverage() {
+
+      const input = document.getElementById("coverageInput");
+      const result = document.getElementById("coverageResult");
+
+      const location = input.value.trim();
+
+      if (!location) {
+
+        result.className =
+          "mt-4 rounded-xl bg-red-50 p-4 text-sm text-red-700";
+
+        result.innerHTML =
+          "Please enter your street, building or neighborhood.";
+
+        result.classList.remove("hidden");
+
+        return;
+      }
+
+
+      /*
+       FUTURE:
+
+       Replace this demo code with:
+
+       fetch('/api/check-coverage.php', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({
+               location: location
+           })
+       })
+
+      */
+
+
+      result.className =
+        "mt-4 rounded-xl bg-green-50 p-4 text-sm text-green-700";
+
+      result.innerHTML =
+        "<strong>Coverage request received.</strong><br>" +
+        "We are checking service availability for <strong>" +
+        escapeHtml(location) +
+        "</strong>.";
+
+      result.classList.remove("hidden");
+    }
+
+
+    /* -------------------------
+       Buy Voucher
+    ------------------------- */
+
+    function buyVoucher(plan, price) {
+
+      /*
+       FUTURE:
+
+       Redirect to:
+
+       checkout.html?plan=weekly&price=5000
+
+       OR
+
+       checkout.php?package_id=2
+
+      */
+
+    const params = new URLSearchParams({
+        plan: plan,
+        price: price
+    });
+
+    window.location.href = "checkout.html?" + params.toString();
+
+}
+
+    /* -------------------------
+       FAQ
+    ------------------------- */
+
+    function toggleFaq(button) {
+
+      const currentItem = button.parentElement;
+
+      document.querySelectorAll(".faq-item").forEach(function(item) {
+
+        if (item !== currentItem) {
+          item.classList.remove("active");
+        }
+
+      });
+
+      currentItem.classList.toggle("active");
+    }
+
+
+    /* -------------------------
+       Voucher modal
+    ------------------------- */
+
+    function openVoucherModal() {
+
+      const modal = document.getElementById("voucherModal");
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+    }
+
+
+    function closeVoucherModal() {
+
+      const modal = document.getElementById("voucherModal");
+
+      modal.classList.remove("flex");
+      modal.classList.add("hidden");
+
+    }
+
+
+    function activateVoucher() {
+
+      const voucher = document
+        .getElementById("voucherCode")
+        .value
+        .trim();
+
+      const message =
+        document.getElementById("voucherMessage");
+
+
+      if (!voucher) {
+
+        message.className =
+          "mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700";
+
+        message.innerText =
+          "Please enter your voucher code.";
+
+        message.classList.remove("hidden");
+
+        return;
+
+      }
+
+
+      /*
+       FUTURE MIKROTIK / PHP API:
+
+       fetch('/api/voucher/login.php', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({
+               voucher: voucher
+           })
+       })
+
+      */
+
+
+      message.className =
+        "mt-4 rounded-xl bg-blue-50 p-3 text-sm text-blue-700";
+
+      message.innerText =
+        "Voucher validation will be connected to the mianoTecs hotspot server.";
+
+      message.classList.remove("hidden");
+
+    }
+
+
+    /* -------------------------
+       Basic HTML safety
+    ------------------------- */
+
+    function escapeHtml(value) {
+
+      const div = document.createElement("div");
+
+      div.textContent = value;
+
+      return div.innerHTML;
+
+    }
+
+  </script>
+
+</body>
+</html>
