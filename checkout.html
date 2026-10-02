@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | mianoTecs</title>
+
+    <meta
+        name="description"
+        content="Purchase your mianoTecs Wi-Fi package."
+    >
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: "#eff6ff",
+                            500: "#2563eb",
+                            600: "#1d4ed8",
+                            700: "#1e40af",
+                            900: "#172554"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .payment-option {
+            transition: all .2s ease;
+        }
+
+        .payment-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .payment-option input {
+            accent-color: #2563eb;
+        }
+
+        .spinner {
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255,255,255,.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+
+    <!-- HEADER -->
+
+    <header class="border-b bg-white">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+
+            <a href="index.html" class="flex items-center gap-2">
+
+        <div class="flex h-12 w-16 items-center justify-center rounded-xl bg-white">
+               <img
+            src="assets/images/mpesa.png"
+            alt="M-Pesa"
+           class="max-h-10 max-w-14 object-contain"
+            >
+          </div>
+                <div>
+                    <div class="text-lg font-bold">
+                        miano<span class="text-brand-600">Tecs</span>
+                    </div>
+
+                    <div class="text-[10px] text-slate-500">
+                        Fast. Local. Connected.
+                    </div>
+                </div>
+
+            </a>
+
+            <a
+                href="index.html"
+                class="text-sm font-semibold text-slate-600 hover:text-brand-600"
+            >
+                ← Back
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="mx-auto max-w-6xl px-4 py-8 md:py-12">
+
+        <div class="mb-8">
+
+            <p class="text-sm font-bold uppercase tracking-wider text-brand-600">
+                Secure Checkout
+            </p>
+
+            <h1 class="mt-2 text-3xl font-extrabold md:text-4xl">
+                Get your Wi-Fi voucher
+            </h1>
+
+            <p class="mt-2 text-slate-500">
+                Complete your payment and receive your Wi-Fi access voucher.
+            </p>
+
+        </div>
+
+
+        <div class="grid gap-6 lg:grid-cols-5">
+
+
+            <!-- LEFT SIDE -->
+
+            <section class="lg:col-span-3">
+
+                <div class="rounded-3xl bg-white p-5 shadow-sm md:p-7">
+
+                    <h2 class="text-xl font-bold">
+                        Customer Information
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Enter the phone number that will be used for payment.
+                    </p>
+
+
+                    <!-- NAME -->
+
+                    <div class="mt-6">
+
+                        <label
+                            for="customerName"
+                            class="mb-2 block text-sm font-semibold"
+                        >
+                            Full Name
+                        </label>
+
+                        <input
+                            id="customerName"
+                            type="text"
+                            placeholder="Enter your full name"
+                            class="w-full rounded-xl border border-slate-300 px-4 py-3.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-blue-100"
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="mt-5">
+
+                        <label
+                            for="phoneNumber"
+                            class="mb-2 block text-sm font-semibold"
+                        >
+                            Mobile Money Number
+                        </label>
+
+                        <div class="flex">
+
+                            <span class="flex items-center rounded-l-xl border border-r-0 border-slate-300 bg-slate-100 px-4 text-sm font-semibold">
+                                +255
+                            </span>
+
+                            <input
+                                id="phoneNumber"
+                                type="tel"
+                                inputmode="numeric"
+                                maxlength="9"
+                                placeholder="700000000"
+                                class="w-full rounded-r-xl border border-slate-300 px-4 py-3.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-blue-100"
+                            >
+
+                        </div>
+
+                        <p class="mt-2 text-xs text-slate-500">
+                            Example: 700 000 000
+                        </p>
+
+                    </div>
+
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="mt-7">
+
+                        <h2 class="text-xl font-bold">
+                            Choose Payment Method
+                        </h2>
+
+                        <p class="mt-1 text-sm text-slate-500">
+                            Select your preferred mobile-money service.
+                        </p>
+
+
+                        <div class="mt-5 space-y-3">
+
+
+                            <!-- MPESA -->
+
+                            <label
+                                class="payment-option flex cursor-pointer items-center gap-4 rounded-2xl border border-slate-200 p-4"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="mpesa"
+                                    class="h-5 w-5"
+                                >
+
+                               <div class="flex h-12 w-16 items-center justify-center rounded-xl bg-white">
+               <img
+            src="assets/images/mpesa.png"
+            alt="M-Pesa"
+           class="max-h-10 max-w-14 object-contain"
+            >
+          </div>
+
+                                <div class="flex-1">
+
+                                    <div class="font-bold">
+                                        Vodacom M-Pesa
+                                    </div>
+
+                                    <div class="text-xs text-slate-500">
+                                        Pay using your M-Pesa number
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- AIRTEL -->
+
+                            <label
+                                class="payment-option flex cursor-pointer items-center gap-4 rounded-2xl border border-slate-200 p-4"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="airtel"
+                                    class="h-5 w-5"
+                                >
+
+                                <div class="flex h-12 w-16 items-center justify-center rounded-xl bg-white">
+    <img
+        src="assets/images/airtel-money.png"
+        alt="Airtel Money"
+        class="max-h-10 max-w-14 object-contain"
+    >
+</div>
+
+                                <div class="flex-1">
+
+                                    <div class="font-bold">
+                                        Airtel Money
+                                    </div>
+
+                                    <div class="text-xs text-slate-500">
+                                        Pay using Airtel Money
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- MIX BY YAS -->
+
+                            <label
+                                class="payment-option flex cursor-pointer items-center gap-4 rounded-2xl border border-slate-200 p-4"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="mixx"
+                                    class="h-5 w-5"
+                                >
+
+                                <div class="flex h-12 w-16 items-center justify-center rounded-xl bg-white">
+    <img
+        src="assets/images/mixx.png"
+        alt="Mixx by Yas"
+        class="max-h-10 max-w-14 object-contain"
+    >
+</div>
+
+                                <div class="flex-1">
+
+                                    <div class="font-bold">
+                                        Mixx by Yas
+                                    </div>
+
+                                    <div class="text-xs text-slate-500">
+                                        Pay using Mixx by Yas
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <!-- HALOPESA -->
+
+                            <label
+                                class="payment-option flex cursor-pointer items-center gap-4 rounded-2xl border border-slate-200 p-4"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="halopesa"
+                                    class="h-5 w-5"
+                                >
+
+                                <div class="flex h-12 w-16 items-center justify-center rounded-xl bg-white">
+    <img
+        src="assets/images/halopesa.png"
+        alt="HaloPesa"
+        class="max-h-10 max-w-14 object-contain"
+    >
+</div>
+
+                                <div class="flex-1">
+
+                                    <div class="font-bold">
+                                        HaloPesa
+                                    </div>
+
+                                    <div class="text-xs text-slate-500">
+                                        Pay using HaloPesa
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ERROR -->
+
+                    <div
+                        id="checkoutError"
+                        class="mt-5 hidden rounded-xl bg-red-50 p-4 text-sm text-red-700"
+                    ></div>
+
+
+                    <!-- PAY BUTTON -->
+
+                    <button
+                        id="payButton"
+                        onclick="processPayment()"
+                        class="mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-brand-600 px-6 py-4 font-bold text-white shadow-lg shadow-blue-100 hover:bg-brand-700"
+                    >
+
+                        <span id="payButtonText">
+                            Pay Now
+                        </span>
+
+                    </button>
+
+
+                    <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                        🔒 Secure payment
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RIGHT SIDE -->
+
+            <aside class="lg:col-span-2">
+
+                <div class="sticky top-6 rounded-3xl bg-slate-900 p-6 text-white shadow-xl">
+
+                    <div class="text-sm text-slate-400">
+                        Your Package
+                    </div>
+
+                    <h2
+                        id="packageName"
+                        class="mt-2 text-2xl font-bold"
+                    >
+                        Loading...
+                    </h2>
+
+
+                    <div class="my-6 border-t border-white/10"></div>
+
+
+                    <div class="space-y-4">
+
+                        <div class="flex justify-between gap-4 text-sm">
+                            <span class="text-slate-400">
+                                Package
+                            </span>
+
+                            <span
+                                id="summaryPackage"
+                                class="font-semibold"
+                            >
+                                -
+                            </span>
+                        </div>
+
+
+                        <div class="flex justify-between gap-4 text-sm">
+                            <span class="text-slate-400">
+                                Duration
+                            </span>
+
+                            <span
+                                id="summaryDuration"
+                                class="font-semibold"
+                            >
+                                -
+                            </span>
+                        </div>
+
+
+                        <div class="flex justify-between gap-4 text-sm">
+                            <span class="text-slate-400">
+                                Payment
+                            </span>
+
+                            <span id="summaryPayment">
+                                Not selected
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="my-6 border-t border-white/10"></div>
+
+
+                    <div class="flex items-end justify-between">
+
+                        <span class="text-slate-400">
+                            Total
+                        </span>
+
+                        <div
+                            id="totalAmount"
+                            class="text-3xl font-extrabold"
+                        >
+                            TZS 0
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-6 rounded-2xl bg-white/5 p-4 text-xs leading-5 text-slate-400">
+
+                        Your voucher will only be generated after your payment
+                        has been successfully confirmed.
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- PAYMENT PROCESSING MODAL -->
+
+    <div
+        id="processingModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-4"
+    >
+
+        <div class="w-full max-w-md rounded-3xl bg-white p-8 text-center">
+
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+
+                <div class="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-brand-600"></div>
+
+            </div>
+
+            <h2 class="mt-5 text-2xl font-bold">
+                Processing Payment
+            </h2>
+
+            <p class="mt-3 text-sm leading-6 text-slate-500">
+                Please wait while we process your payment request.
+                Do not close this page.
+            </p>
+
+            <div class="mt-5 rounded-xl bg-slate-50 p-4 text-sm">
+
+                Payment Method:
+                <strong id="processingMethod">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+        =========================================================
+        GET PACKAGE FROM URL
+        =========================================================
+        */
+
+        const params = new URLSearchParams(window.location.search);
+
+        const plan = params.get("plan") || "Daily Pass";
+        const price = Number(params.get("price")) || 1000;
+
+
+        /*
+        =========================================================
+        PACKAGE INFORMATION
+        =========================================================
+        */
+
+        const packageDurations = {
+
+            "Daily Pass": "24 Hours",
+
+            "Weekly Pass": "7 Days",
+
+            "Monthly Pass": "30 Days"
+
+        };
+
+
+        /*
+        =========================================================
+        DISPLAY PACKAGE
+        =========================================================
+        */
+
+        document.getElementById("packageName").textContent = plan;
+
+        document.getElementById("summaryPackage").textContent = plan;
+
+        document.getElementById("summaryDuration").textContent =
+            packageDurations[plan] || "Custom";
+
+        document.getElementById("totalAmount").textContent =
+            "TZS " + price.toLocaleString();
+
+
+        /*
+        =========================================================
+        PAYMENT METHOD UI
+        =========================================================
+        */
+
+        const paymentOptions =
+            document.querySelectorAll(".payment-option");
+
+        const paymentRadios =
+            document.querySelectorAll(
+                'input[name="paymentMethod"]'
+            );
+
+
+        paymentRadios.forEach(function(radio) {
+
+            radio.addEventListener("change", function() {
+
+                paymentOptions.forEach(function(option) {
+                    option.classList.remove("selected");
+                });
+
+
+                radio.closest(".payment-option")
+                    .classList.add("selected");
+
+
+                const names = {
+
+                    mpesa: "M-Pesa",
+
+                    airtel: "Airtel Money",
+
+                    mixx: "Mixx by Yas",
+
+                    halopesa: "HaloPesa"
+
+                };
+
+
+                document.getElementById("summaryPayment")
+                    .textContent =
+                    names[radio.value];
+
+            });
+
+        });
+
+
+        /*
+        =========================================================
+        PROCESS PAYMENT
+        =========================================================
+        */
+
+        function processPayment() {
+
+            const name =
+                document.getElementById("customerName")
+                    .value.trim();
+
+
+            const phone =
+                document.getElementById("phoneNumber")
+                    .value.trim();
+
+
+            const selected =
+                document.querySelector(
+                    'input[name="paymentMethod"]:checked'
+                );
+
+
+            const error =
+                document.getElementById("checkoutError");
+
+
+            error.classList.add("hidden");
+
+
+            /*
+            VALIDATE NAME
+            */
+
+            if (!name) {
+
+                showError(
+                    "Please enter your full name."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            VALIDATE PHONE
+            */
+
+            if (!/^[67]\d{8}$/.test(phone)) {
+
+                showError(
+                    "Please enter a valid Tanzanian mobile number, e.g. 700000000."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            VALIDATE PAYMENT METHOD
+            */
+
+            if (!selected) {
+
+                showError(
+                    "Please select a mobile-money payment method."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            SHOW PROCESSING
+            */
+
+            const paymentNames = {
+
+                mpesa: "M-Pesa",
+
+                airtel: "Airtel Money",
+
+                mixx: "Mixx by Yas",
+
+                halopesa: "HaloPesa"
+
+            };
+
+
+            document.getElementById(
+                "processingMethod"
+            ).textContent =
+                paymentNames[selected.value];
+
+
+            const modal =
+                document.getElementById(
+                    "processingModal"
+                );
+
+
+            modal.classList.remove("hidden");
+
+            modal.classList.add("flex");
+
+
+            /*
+            =====================================================
+            DEMO PAYMENT
+            =====================================================
+
+            THIS IS ONLY A FRONTEND SIMULATION.
+
+            REAL PAYMENT WILL EVENTUALLY BE:
+
+            JavaScript
+                ↓
+            PHP API
+                ↓
+            Payment Gateway
+                ↓
+            Mobile Money
+                ↓
+            Gateway Callback
+                ↓
+            PHP
+                ↓
+            Database
+                ↓
+            Voucher Generation
+
+            =====================================================
+            */
+
+
+            setTimeout(function() {
+
+                const reference =
+                    generateReference();
+
+
+                window.location.href =
+                    "voucher-success.html?" +
+
+                    new URLSearchParams({
+
+                        reference: reference,
+
+                        plan: plan,
+
+                        price: price,
+
+                        name: name,
+
+                        phone: phone,
+
+                        method: selected.value
+
+                    }).toString();
+
+
+            }, 2500);
+
+        }
+
+
+        /*
+        =========================================================
+        ERROR
+        =========================================================
+        */
+
+        function showError(message) {
+
+            const error =
+                document.getElementById(
+                    "checkoutError"
+                );
+
+
+            error.textContent = message;
+
+            error.classList.remove("hidden");
+
+            error.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+        /*
+        =========================================================
+        TRANSACTION REFERENCE
+        =========================================================
+        */
+
+        function generateReference() {
+
+            const random =
+                Math.random()
+                    .toString(36)
+                    .substring(2, 10)
+                    .toUpperCase();
+
+
+            return "MTC-" + random;
+
+        }
+
+    </script>
+
+</body>
+</html>
